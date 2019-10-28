@@ -1,2 +1,6 @@
 # Teams_Policy_Update
-Holding the script for the Teams Policy Update script
+This is the repo for the script for group based Teams Policy Updates
+
+This requires the modules AzureAD and SkypeOnlineConnector. 
+
+For more information please see the following blog: 
