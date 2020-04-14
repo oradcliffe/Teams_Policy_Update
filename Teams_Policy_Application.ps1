@@ -18,12 +18,12 @@ function Write-ToTeams {
         sections = @(
             @{
                 activityTitle = 'Teams Meeting Policy Application'
-                activitySubtitle = 'Teams Meeting Policy applied to users'
-                activityText = 'Teams Meeting Policy automation was run.'
+                activitySubtitle = 'Teams Meeting Policy applied to users.'
+                activityText = 'This is an automated message to alert that some users have a modified Teams Meeting policy.'
                 activityImage = "https://hotemoji.com/images/dl/6/thumbs-up-emoji-by-google.png" # this value would be a path to a nice image you would like to display in notifications
             },
             @{
-                title = 'Users modifed with new Teams Meeting Policy'
+                title = 'Users modifed with new Teams Meeting Policy:'
                 text = "$message"
             }
         )
@@ -130,4 +130,4 @@ else {
     [string]$teamsChanges = $teamsChanges | ConvertTo-Html -Fragment
 }
 Write-Verbose $teamsChanges
-Write-ToTeams -uri $teamsURI -title "Teams Policy Automation Notification" -text "Teams Policy deployment task successful" -message $teamsChanges
+Write-ToTeams -uri $teamsURI -title "Teams Meeting Policy Assignment Notification" -text "Teams Meeting Policy assignment task successful" -message $teamsChanges
