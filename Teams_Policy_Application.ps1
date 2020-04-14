@@ -17,13 +17,13 @@ function Write-ToTeams {
         text = "$text"
         sections = @(
             @{
-                activityTitle = 'Deployment'
-                activitySubtitle = 'automated policy deployment'
-                activityText = 'A deployment was executed and new results are available.'
-                activityImage = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPHDXiAytKAkLQQtbB3j5BDqGpinq0Uh1rjDGnKCinrS17bwRD" # this value would be a path to a nice image you would like to display in notifications
+                activityTitle = 'Teams Meeting Policy Application'
+                activitySubtitle = 'Teams Meeting Policy applied to users'
+                activityText = 'Teams Meeting Policy automation was run.'
+                activityImage = "https://hotemoji.com/images/dl/6/thumbs-up-emoji-by-google.png" # this value would be a path to a nice image you would like to display in notifications
             },
             @{
-                title = 'Report'
+                title = 'Users modifed with new Teams Meeting Policy'
                 text = "$message"
             }
         )
@@ -102,7 +102,7 @@ function Invoke-TeamsPolicyApplication {
             Write-Verbose "Teams Policy is already correct on $upn"
         }
         else {
-            Write-Verbose "Setting Teams $policyToApply on $upn"
+            Write-Verbose "Setting Teams Meeting Policy $policyToApply on $upn"
             $temp = New-Object PSObject
             $temp | Add-Member -MemberType NoteProperty -Name User -Value $upn
             $temp | Add-Member -MemberType NoteProperty -Name Policy -Value $policyToApply
@@ -117,14 +117,14 @@ function Invoke-TeamsPolicyApplication {
 }
 #Get Teams Admin Credentials
 $teamsAdminCreds = Get-AutomationPSCredential "Teams Admin" -Verbose
-$policy1Users = Invoke-TeamsLicenseCheck -group "Teams Policy 1 group" -credentials $teamsAdminCreds
-$policy2Users = Invoke-TeamsLicenseCheck -group "Teams Policy 2 group" -credentials $teamsAdminCreds
-$policy3Users = Invoke-TeamsLicenseCheck -group "Teams Policy 3 group" -credentials $teamsAdminCreds
-$teamsChanges = Invoke-TeamsPolicyApplication -creds $teamsAdminCreds -users $policy1Users -policyToApply "Teams Meeting Policy 1" -Verbose
-$teamsChanges += Invoke-TeamsPolicyApplication -creds $teamsAdminCreds -users $policy2Users -policyToApply "Teams Meeting Policy 2" -Verbose
-$teamsChanges += Invoke-TeamsPolicyApplication -creds $teamsAdminCreds -users $policy3Users -policyToApply "Teams Meeting Policy 3" -Verbose
+$policy1Users = Invoke-TeamsLicenseCheck -group "TeamsMeetingPolicyGroup1" -credentials $teamsAdminCreds
+$policy2Users = Invoke-TeamsLicenseCheck -group "TeamsMeetingPolicyGroup2" -credentials $teamsAdminCreds
+$policy3Users = Invoke-TeamsLicenseCheck -group "TeamsMeetingPolicyGroup3" -credentials $teamsAdminCreds
+$teamsChanges = Invoke-TeamsPolicyApplication -creds $teamsAdminCreds -users $policy1Users -policyToApply "testMeeting1" -Verbose
+$teamsChanges += Invoke-TeamsPolicyApplication -creds $teamsAdminCreds -users $policy2Users -policyToApply "testMeeting2" -Verbose
+$teamsChanges += Invoke-TeamsPolicyApplication -creds $teamsAdminCreds -users $policy3Users -policyToApply "testMeeting3" -Verbose
 if (!$teamsChanges) {
-    $teamsChanges = "No changes have been made today"
+    $teamsChanges = "No changes have been made on this run."
 }
 else {
     [string]$teamsChanges = $teamsChanges | ConvertTo-Html -Fragment
