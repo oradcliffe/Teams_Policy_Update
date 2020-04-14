@@ -116,7 +116,7 @@ function Invoke-TeamsPolicyApplication {
     Remove-PSSession $sfbSession
 }
 #Get Teams Admin Credentials
-$teamsAdminCreds = Get-AutomationPSCredential "Teams Admin" -Verbose
+$teamsAdminCreds = Get-AutomationPSCredential "teamsAdmin" -Verbose
 $policy1Users = Invoke-TeamsLicenseCheck -group "TeamsMeetingPolicyGroup1" -credentials $teamsAdminCreds
 $policy2Users = Invoke-TeamsLicenseCheck -group "TeamsMeetingPolicyGroup2" -credentials $teamsAdminCreds
 $policy3Users = Invoke-TeamsLicenseCheck -group "TeamsMeetingPolicyGroup3" -credentials $teamsAdminCreds
